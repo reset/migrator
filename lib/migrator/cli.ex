@@ -25,6 +25,10 @@ defmodule Migrator.CLI do
     IO.puts version
     System.halt(0)
   end
+  defp parse_args({_, argv, _}) when length(argv) == 0 do
+    display_help
+    System.halt(0)
+  end
   defp parse_args({_, argv, _}) when length(argv) < 2 do
     IO.puts "Invalid number of arguments. Specify both a path and connection string."
     display_help
