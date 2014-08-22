@@ -12,6 +12,11 @@ defmodule Migrator do
     Application.get_all_env(:migrator)
   end
 
+  def version do
+    {:ok, vsn} = :application.get_key(:migrator, :vsn)
+    vsn
+  end
+
   #
   # Application callbacks
   #
