@@ -5,7 +5,12 @@ defmodule Migrator.Command.Create do
     connection = parse_args(args)
     Migrator.configure(connection: connection)
     Migrator.Repo.start_link
-    Ecto.Storage.up(Migrator.Repo)
+    case Ecto.Storage.up(Migrator.Repo) do
+      :ok -> :ok
+      {:error, message} ->
+        IO.write message
+        System.halt(1)
+    end
   end
 
   #
