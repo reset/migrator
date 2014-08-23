@@ -22,7 +22,12 @@ defmodule Migrator.CLI do
 
   defp display_help do
     IO.write """
-    Usage: migrator COMMAND [options]
+    Commands:
+        migrator up PATH CONNECTION-STRING [options]
+        migrator create CONNECTION-STRING [options]
+        migrator drop CONNECTION-STRING [options]
+
+    Options:
         -h, --help     show this help
         -v, --version  show the version
     """
