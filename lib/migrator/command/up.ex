@@ -21,10 +21,13 @@ defmodule Migrator.Command.Up do
     IO.write """
     Usage: migrator up PATH CONNECTION-STRING [options]
         -h, --help     show this help
-        -v, --version  show the version
     """
   end
 
+  defp parse_args({[help: true], _, _}) do
+    display_help
+    System.halt(0)
+  end
   defp parse_args(args) when length(args) == 0 do
     display_help
     System.halt(0)

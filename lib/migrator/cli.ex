@@ -33,11 +33,11 @@ defmodule Migrator.CLI do
     """
   end
 
-  defp parse_args({[help: true], _, _}) do
+  defp parse_args({[help: true], argv, _}) when length(argv) == 0 do
     display_help
     System.halt(0)
   end
-  defp parse_args({[version: true], _, _}) do
+  defp parse_args({[version: true], argv, _}) when length(argv) == 0 do
     IO.puts Migrator.version
     System.halt(0)
   end
