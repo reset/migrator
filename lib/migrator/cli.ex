@@ -50,8 +50,8 @@ defmodule Migrator.CLI do
   end
   defp parse_args(args) do
     OptionParser.parse(args, [
-      switches: [all: :boolean, step: :integer, to: :integer, version: :boolean, help: :boolean],
-      aliases: [n: :step, t: :to, v: :version, h: :help]
+      switches: [all: :boolean, step: :integer, to: :integer, version: :boolean, help: :boolean, schema: :binary],
+      aliases: [n: :step, t: :to, v: :version, h: :help, s: :schema]
     ]) |> parse_args
   end
 end

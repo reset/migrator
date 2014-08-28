@@ -10,6 +10,7 @@ defmodule Migrator.Command.Up do
     end
 
     Migrator.Repo.start_link
+    Migrator.Repo.set_schema(opts[:schema])
     Ecto.Migrator.run(Migrator.Repo, configuration[:migrations_path], :up, opts)
   end
 
@@ -20,6 +21,7 @@ defmodule Migrator.Command.Up do
   defp display_help do
     IO.write """
     Usage: migrator up PATH CONNECTION-STRING [options]
+        -s, --schema   set sql schema (default: public)
         -h, --help     show this help
     """
   end

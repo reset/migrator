@@ -4,6 +4,16 @@ defmodule Migrator.Repo do
 
   def conf do
     opts = parse_url configuration[:connection]
-    opts ++ [size: 1]
+    opts ++ [size: "1"]
+  end
+
+  def create_schema(name) do
+    adapter.query(__MODULE__, "CREATE SCHEMA IF NOT EXISTS #{name}", [])
+  end
+
+  def set_schema(nil), do: :ok
+  def set_schema(name) do
+    create_schema(name)
+    adapter.query(__MODULE__, "SET search_path TO #{name}", [])
   end
 end
