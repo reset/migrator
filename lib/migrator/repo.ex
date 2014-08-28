@@ -3,6 +3,7 @@ defmodule Migrator.Repo do
   import Migrator, only: [configuration: 0]
 
   def conf do
-    parse_url configuration[:connection]
+    opts = parse_url configuration[:connection]
+    opts ++ [size: 1]
   end
 end
