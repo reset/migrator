@@ -4,3 +4,4 @@ erl_crash.dump
 *.ez
 /migrator
 .DS_Store
+migrator.tar.gz
