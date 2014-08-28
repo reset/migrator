@@ -2,23 +2,23 @@ defmodule Migrator.CLI do
   alias Migrator.Command
 
   def main(args) do
-    {command, {args2, opts}} = parse_args(args)
-    dispatch(command, args2, opts)
+    command = parse_args(args)
+    dispatch(command, List.delete(args, command))
   end
 
   #
   # Private
   #
 
-  defp dispatch("up", args, opts), do: _dispatch(Command.Up, args, opts)
-  defp dispatch("create", args, opts), do: _dispatch(Command.Create, args, opts)
-  defp dispatch("drop", args, opts), do: _dispatch(Command.Drop, args, opts)
+  defp dispatch("up", argv), do: _dispatch(Command.Up, argv)
+  defp dispatch("create", argv), do: _dispatch(Command.Create, argv)
+  defp dispatch("drop", argv), do: _dispatch(Command.Drop, argv)
   defp dispatch(cmd, _, _) do
     IO.puts "Unsupported command: #{cmd}"
     display_help
     System.halt(1)
   end
-  defp _dispatch(module, args, opts), do: apply(module, :run, [args, opts])
+  defp _dispatch(module, argv), do: apply(module, :run, [argv])
 
   defp display_help do
     IO.write """
@@ -45,13 +45,11 @@ defmodule Migrator.CLI do
     display_help
     System.halt(0)
   end
-  defp parse_args({opts, [command|rest], _}) do
-    {command, {rest, opts}}
-  end
+  defp parse_args({_, [command|_], _}), do: command
   defp parse_args(args) do
     OptionParser.parse(args, [
-      switches: [all: :boolean, step: :integer, to: :integer, version: :boolean, help: :boolean, schema: :binary],
-      aliases: [n: :step, t: :to, v: :version, h: :help, s: :schema]
+      switches: [version: :boolean, help: :boolean],
+      aliases: [v: :version, h: :help]
     ]) |> parse_args
   end
 end

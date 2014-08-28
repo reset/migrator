@@ -8,5 +8,5 @@ defmodule Migrator.Command do
     end
   end
 
-  defcallback run(list, list) :: no_return
+  defcallback run(list) :: no_return
 end

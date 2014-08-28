@@ -1,7 +1,7 @@
 defmodule Migrator.Command.Create do
   use Migrator.Command
 
-  def run(args, _ \\ []) do
+  def run(args) do
     connection = parse_args(args)
     Migrator.configure(connection: connection)
     Migrator.Repo.start_link
