@@ -13,7 +13,7 @@ defmodule Migrator.CLI do
   defp dispatch("up", argv), do: _dispatch(Command.Up, argv)
   defp dispatch("create", argv), do: _dispatch(Command.Create, argv)
   defp dispatch("drop", argv), do: _dispatch(Command.Drop, argv)
-  defp dispatch(cmd, _, _) do
+  defp dispatch(cmd, _) do
     IO.puts "Unsupported command: #{cmd}"
     display_help
     System.halt(1)
