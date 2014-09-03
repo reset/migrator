@@ -1,11 +1,10 @@
 defmodule Migrator.Command.Create do
   use Migrator.Command
+  import Migrator.CLI, only: [parse_connection_uri: 1]
 
   def run(args) do
-    connection = parse_args(args)
-    Migrator.configure(connection: connection)
-    Migrator.Repo.start_link
-    case Ecto.Storage.up(Migrator.Repo) do
+    uri = parse_args(args)
+    case parse_connection_uri(uri) |> Migrator.create do
       :ok -> :ok
       {:error, message} ->
         IO.write message
@@ -19,7 +18,7 @@ defmodule Migrator.Command.Create do
 
   defp display_help do
     IO.write """
-    Usage: migrator create CONNECTION-STRING [options]
+    Usage: migrator create CONNECTION-URI [options]
         -h, --help     show this help
     """
   end

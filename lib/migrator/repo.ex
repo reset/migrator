@@ -3,8 +3,7 @@ defmodule Migrator.Repo do
   import Migrator, only: [configuration: 0]
 
   def conf do
-    opts = parse_url configuration[:connection]
-    opts ++ [size: "1"]
+    Dict.to_list(configuration[:connection]) ++ [size: "1"]
   end
 
   def create_schema(name) do

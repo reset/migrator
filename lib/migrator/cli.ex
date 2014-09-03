@@ -6,6 +6,16 @@ defmodule Migrator.CLI do
     dispatch(command, List.delete(args, command))
   end
 
+  def parse_connection_uri(uri) do
+    try do
+      Migrator.Connection.from_string(uri)
+    rescue
+      e in Ecto.InvalidURL ->
+        IO.puts e.message
+        System.halt(1)
+    end
+  end
+
   #
   # Private
   #

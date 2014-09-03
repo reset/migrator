@@ -1,17 +1,11 @@
 defmodule Migrator.Command.Up do
   use Migrator.Command
+  import Migrator.CLI, only: [parse_connection_uri: 1]
 
   def run(args) do
-    {path, connection, opts} = parse_args(args)
-    Migrator.configure(migrations_path: path, connection: connection)
-
-    unless opts[:to] || opts[:step] || opts[:all] do
-      opts = Keyword.put(opts, :all, true)
-    end
-
-    Migrator.Repo.start_link
-    Migrator.Repo.set_schema(opts[:schema])
-    Ecto.Migrator.run(Migrator.Repo, configuration[:migrations_path], :up, opts)
+    {path, uri, opts} = parse_args(args)
+    conn              = parse_connection_uri(uri)
+    Migrator.up(path, conn, opts)
   end
 
   #
@@ -20,7 +14,7 @@ defmodule Migrator.Command.Up do
 
   defp display_help do
     IO.write """
-    Usage: migrator up PATH CONNECTION-STRING [options]
+    Usage: migrator up PATH CONNECTION-URI [options]
         -s, --schema   set sql schema (default: public)
         -t, --to       run all migrations up to and including version
         -n, --step     run n number of pending migrations
