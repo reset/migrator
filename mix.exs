@@ -5,7 +5,7 @@ defmodule Migrator.Mixfile do
     [
       app: :migrator,
       version: "0.2.0",
-      elixir: "~> 0.15.1 or ~> 1.0.0-rc1",
+      elixir: "~> 1.0.0 or ~> 0.15.1",
       deps: deps,
       escript: [
         main_module: Migrator.CLI,
