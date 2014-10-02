@@ -21,6 +21,7 @@ defmodule Migrator do
     Migrator.configure(connection: conn)
     Migrator.Repo.start_link
     Ecto.Storage.up(Migrator.Repo)
+    Migrator.Repo.stop
   end
 
   @doc """
@@ -31,6 +32,7 @@ defmodule Migrator do
     Migrator.configure(connection: conn)
     Migrator.Repo.start_link
     Ecto.Storage.down(Migrator.Repo)
+    Migrator.Repo.stop
   end
 
   @doc """
@@ -47,6 +49,7 @@ defmodule Migrator do
     Migrator.Repo.start_link
     Migrator.Repo.set_schema(opts[:schema])
     Ecto.Migrator.run(Migrator.Repo, configuration[:migrations_path], :up, opts)
+    Migrator.Repo.stop
   end
 
   def version do
