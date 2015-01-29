@@ -1,5 +1,5 @@
 defmodule Migrator.Repo do
-  use Ecto.Repo, adapter: Ecto.Adapters.Postgres
+  use Ecto.Repo, adapter: Ecto.Adapters.Postgres, otp_app: :migrator
   import Migrator, only: [configuration: 0]
 
   def conf do

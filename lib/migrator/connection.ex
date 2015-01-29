@@ -1,5 +1,5 @@
 defmodule Migrator.Connection do
-  import Ecto.Utils, only: [parse_url: 1]
+  import Ecto.Repo.Config, only: [parse_url: 1]
 
   @type t :: %__MODULE__{
     username: binary,
