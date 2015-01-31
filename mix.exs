@@ -4,7 +4,7 @@ defmodule Migrator.Mixfile do
   def project do
     [
       app: :migrator,
-      version: "0.3.0",
+      version: "0.4.0",
       elixir: "~> 1.0.0 or ~> 0.15.1",
       deps: deps,
       escript: [
