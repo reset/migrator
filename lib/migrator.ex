@@ -18,7 +18,7 @@ defmodule Migrator do
   """
   @spec create(Conn.t) :: :ok | {:error, term}
   def create(%Conn{} = conn) do
-    Migrator.configure(connection: conn)
+    configure(connection: conn, url: Conn.to_string(conn))
     Migrator.Repo.start_link
     Ecto.Storage.up(Migrator.Repo)
     Migrator.Repo.stop
@@ -29,7 +29,7 @@ defmodule Migrator do
   """
   @spec drop(Conn.t) :: :ok | {:error, term}
   def drop(%Conn{} = conn) do
-    Migrator.configure(connection: conn)
+    configure(connection: conn, url: Conn.to_string(conn))
     Migrator.Repo.start_link
     Ecto.Storage.down(Migrator.Repo)
     Migrator.Repo.stop
@@ -40,7 +40,7 @@ defmodule Migrator do
   """
   @spec up(binary, Conn.to, list) :: [integer]
   def up(migrations, %Conn{} = conn, opts \\ []) do
-    configure(migrations_path: migrations, connection: conn)
+    configure(migrations_path: migrations, connection: conn, url: Conn.to_string(conn))
 
     unless opts[:to] || opts[:step] || opts[:all] do
       opts = Keyword.put(opts, :all, true)
@@ -72,11 +72,15 @@ defmodule Migrator do
   defp config_set({:connection = key, conn}) do
     config_set(key, conn)
   end
+  defp config_set({:url = key, string}) do
+    config_set(Migrator.Repo, url: string)
+  end
   defp config_set({:migrations_path = key, path}) do
     path = Path.expand(path)
     validate_path(path)
     config_set(key, path)
   end
+
   defp config_set(key, value), do: Application.put_env(:migrator, key, value)
 
   defp validate_path(path) do
