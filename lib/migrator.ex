@@ -72,7 +72,7 @@ defmodule Migrator do
   defp config_set({:connection = key, conn}) do
     config_set(key, conn)
   end
-  defp config_set({:url = key, string}) do
+  defp config_set({:url, string}) do
     config_set(Migrator.Repo, url: string)
   end
   defp config_set({:migrations_path = key, path}) do
