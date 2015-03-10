@@ -1,5 +1,5 @@
 defmodule Migrator.Repo do
-  use Ecto.Repo, adapter: Ecto.Adapters.Postgres, otp_app: :migrator
+  use Ecto.Repo, otp_app: :migrator
 
   def create_schema(name) do
     Ecto.Adapters.SQL.query(__MODULE__, "CREATE SCHEMA IF NOT EXISTS #{name}", [])

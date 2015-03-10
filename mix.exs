@@ -21,14 +21,18 @@ defmodule Migrator.Mixfile do
         :postgrex,
         :ecto,
       ],
-      env: [],
+      env: [
+        {Migrator.Repo, [
+          {:adapter, Ecto.Adapters.Postgres},
+        ]},
+      ],
     ]
   end
 
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 0.8.0"},
+      {:ecto, "~> 0.9.0"},
     ]
   end
 end
