@@ -22,9 +22,9 @@ defmodule Migrator.Mixfile do
         :ecto,
       ],
       env: [
-        {Migrator.Repo, [
-          {:adapter, Ecto.Adapters.Postgres},
-        ]},
+        'Elixir.Migrator.Repo': [
+          adapter: Ecto.Adapters.Postgres,
+        ],
       ],
     ]
   end
