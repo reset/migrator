@@ -47,7 +47,6 @@ defmodule Migrator do
     end
 
     Migrator.Repo.start_link
-    Migrator.Repo.set_schema(opts[:schema])
     Ecto.Migrator.run(Migrator.Repo, configuration[:migrations_path], :up, opts)
     Migrator.Repo.stop
   end
