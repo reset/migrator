@@ -15,7 +15,6 @@ defmodule Migrator.Command.Up do
   defp display_help do
     IO.write """
     Usage: migrator up PATH CONNECTION-URI [options]
-        -s, --schema   set sql schema (default: public)
         -t, --to       run all migrations up to and including version
         -n, --step     run n number of pending migrations
         -a, --all      run all pending migrations (default)
@@ -41,8 +40,8 @@ defmodule Migrator.Command.Up do
   end
   defp parse_args(args) do
     OptionParser.parse(args, [
-      switches: [all: :boolean, step: :integer, to: :integer, version: :boolean, help: :boolean, schema: :binary],
-      aliases: [a: :all, n: :step, t: :to, v: :version, h: :help, s: :schema]
+      switches: [all: :boolean, step: :integer, to: :integer, version: :boolean, help: :boolean],
+      aliases: [a: :all, n: :step, t: :to, v: :version, h: :help]
     ]) |> parse_args
   end
 end

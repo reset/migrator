@@ -10,9 +10,6 @@ defmodule Migrator.Supervisor do
   end
 
   def init(_) do
-    children = [
-    ]
-
-    supervise(children, strategy: :one_for_one)
+    supervise([], strategy: :one_for_one)
   end
 end
