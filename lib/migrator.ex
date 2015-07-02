@@ -21,7 +21,8 @@ defmodule Migrator do
     configure(connection: conn, url: Conn.to_string(conn))
     {:ok, pid} = Migrator.Repo.start_link
     Ecto.Storage.up(Migrator.Repo)
-    Process.exit(pid, :normal)
+    true = Process.exit(pid, :normal)
+    :ok
   end
 
   @doc """
@@ -32,7 +33,8 @@ defmodule Migrator do
     configure(connection: conn, url: Conn.to_string(conn))
     {:ok, pid} = Migrator.Repo.start_link
     Ecto.Storage.down(Migrator.Repo)
-    Process.exit(pid, :normal)
+    true = Process.exit(pid, :normal)
+    :ok
   end
 
   @doc """
@@ -48,7 +50,8 @@ defmodule Migrator do
 
     {:ok, pid} = Migrator.Repo.start_link
     Ecto.Migrator.run(Migrator.Repo, configuration[:migrations_path], :up, opts)
-    Process.exit(pid, :normal)
+    true = Process.exit(pid, :normal)
+    :ok
   end
 
   def version do
