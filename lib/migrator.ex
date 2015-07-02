@@ -19,9 +19,9 @@ defmodule Migrator do
   @spec create(Conn.t) :: :ok | {:error, term}
   def create(%Conn{} = conn) do
     configure(connection: conn, url: Conn.to_string(conn))
-    Migrator.Repo.start_link
+    {:ok, pid} = Migrator.Repo.start_link
     Ecto.Storage.up(Migrator.Repo)
-    Migrator.Repo.stop
+    Process.exit(pid, :normal)
   end
 
   @doc """
@@ -30,9 +30,9 @@ defmodule Migrator do
   @spec drop(Conn.t) :: :ok | {:error, term}
   def drop(%Conn{} = conn) do
     configure(connection: conn, url: Conn.to_string(conn))
-    Migrator.Repo.start_link
+    {:ok, pid} = Migrator.Repo.start_link
     Ecto.Storage.down(Migrator.Repo)
-    Migrator.Repo.stop
+    Process.exit(pid, :normal)
   end
 
   @doc """
@@ -46,9 +46,9 @@ defmodule Migrator do
       opts = Keyword.put(opts, :all, true)
     end
 
-    Migrator.Repo.start_link
+    {:ok, pid} = Migrator.Repo.start_link
     Ecto.Migrator.run(Migrator.Repo, configuration[:migrations_path], :up, opts)
-    Migrator.Repo.stop
+    Process.exit(pid, :normal)
   end
 
   def version do
