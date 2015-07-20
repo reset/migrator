@@ -32,7 +32,7 @@ defmodule Migrator.Mixfile do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 0.13.0"},
+      {:ecto, "~> 0.14.0"},
     ]
   end
 end
