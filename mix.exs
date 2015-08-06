@@ -32,7 +32,7 @@ defmodule Migrator.Mixfile do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto, github: "elixir-lang/ecto"},
+      {:ecto, "~> 0.15.0"},
     ]
   end
 end
